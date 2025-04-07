@@ -6,7 +6,7 @@ import { GiPadlock } from 'react-icons/gi'
 import {useForm} from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { LoginSchema, loginSchema } from '@/lib/schemas/LoginSchema';
+import { LoginSchema, loginSchema } from '@/lib/schemas/loginSchema';
 
 export default function LoginForm() {
     const router = useRouter();
