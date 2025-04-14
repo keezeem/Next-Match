@@ -8,51 +8,36 @@ export default {
   providers: [
     Credentials({
       name: 'credentials',
-      credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
-      },
-      async authorize(credentials) {
-        try {
-          const validated = loginSchema.safeParse(credentials);
-          
-          if (!validated.success) {
-            return null;
-          }
-
+      async authorize(creds) {
+        const validated = loginSchema.safeParse(creds);
+        
+        if (validated.success) {
           const { email, password } = validated.data;
           const user = await getUserByEmail(email);
 
-          // Explicit null check for passwordHash
-          if (!user?.passwordHash) {
+          // Add explicit null check for passwordHash
+          if (!user || !user.passwordHash) {
             return null;
           }
 
-          // Safe password comparison
-          const isPasswordValid = await compare(password, user.passwordHash);
-          if (!isPasswordValid) {
+          // Now we know passwordHash is definitely a string
+          const passwordsMatch = await compare(password, user.passwordHash);
+          
+          if (!passwordsMatch) {
             return null;
           }
 
-          // Return only necessary user data
+          // Return only necessary user data (without passwordHash)
           return {
             id: user.id,
             email: user.email,
-            name: user.name,
-            // Add other necessary user fields
+            name: user.name
+            // Include any other user fields you need in the session
           };
-        } catch (error) {
-          console.error("Authentication error:", error);
-          return null;
         }
+
+        return null;
       }
     })
   ],
-  // Optional: Add these for better configuration
-  pages: {
-    signIn: '/login',
-    error: '/auth/error'
-  },
-  secret: process.env.AUTH_SECRET,
-  trustHost: true
 } satisfies NextAuthConfig;
