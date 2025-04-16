@@ -1,4 +1,4 @@
-import { getMemberByUserId } from '@/app/actions/membersActions';
+import { getMemberByUserId } from '@/app/actions/memberActions';
 import { CardBody, CardHeader, Divider } from '@nextui-org/react';
 import { notFound } from 'next/navigation';
 import React from 'react'
