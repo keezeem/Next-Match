@@ -1,9 +1,26 @@
-import React from 'react'
+import { CardHeader, Divider, CardBody } from '@nextui-org/react'
+import React from 'react' 
+import { getAuthUserId } from '@/app/actions/authActions'
+import { getMemberByUserId } from '@/app/actions/memberActions';
+import { notFound } from 'next/navigation';
+import EditForm from './EditForm';
 
-export default function page() {
-  return (
-    <div>
-      MemberEditPage
-    </div>
-  )
+export default async function MemberEditPage() {
+    const userId = await getAuthUserId();
+
+    const member = await getMemberByUserId(userId);
+
+    if (!member) return notFound();
+
+    return (
+        <>
+            <CardHeader className='text-2xl font-semibold text-secondary'>
+                Edit Profile
+            </CardHeader>
+            <Divider />
+            <CardBody>
+                <EditForm member={member} />
+            </CardBody>
+        </>
+    )
 }
