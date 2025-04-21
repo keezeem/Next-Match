@@ -2,7 +2,7 @@
 
 import LikeButton from '@/components/LikeButton'
 import PresenceDot from '@/components/PresenceDot';
-import { calculateAge, transformImageUrl } from '@/lib/utils';
+import { calculateAge, transformImageUrl } from '@/lib/utils'
 import { Card, CardFooter, Image } from '@nextui-org/react'
 import { Member } from '@prisma/client'
 import Link from 'next/link'
