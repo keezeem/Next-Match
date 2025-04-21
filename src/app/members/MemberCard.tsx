@@ -1,7 +1,8 @@
 'use client';
 
 import LikeButton from '@/components/LikeButton'
-import { calculateAge } from '@/lib/utils';
+import PresenceDot from '@/components/PresenceDot';
+import { calculateAge, transformImageUrl } from '@/lib/utils';
 import { Card, CardFooter, Image } from '@nextui-org/react'
 import { Member } from '@prisma/client'
 import Link from 'next/link'
@@ -31,12 +32,15 @@ export default function MemberCard({ member, likeIds }: Props) {
                 isZoomed
                 alt={member.name}
                 width={300}
-                src={member.image || '/images/user.png'}
+                src={transformImageUrl(member.image) || '/images/user.png'}
                 className='aspect-square object-cover'
             />
             <div onClick={preventLinkAction}>
                 <div className='absolute top-3 right-3 z-50'>
                     <LikeButton targetId={member.userId} hasLiked={hasLiked} />
+                </div>
+                <div className='absolute top-2 left-3 z-50'>
+                    <PresenceDot member={member} />
                 </div>
             </div>
 
