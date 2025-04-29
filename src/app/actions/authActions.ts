@@ -1,6 +1,7 @@
 'use server';
 
 import { auth, signIn, signOut } from '@/auth';
+import { sendVerificationEmail } from '@/lib/mail';
 import { prisma } from '@/lib/prisma';
 import { LoginSchema } from '@/lib/schemas/loginSchema';
 import { ProfileSchema, RegisterSchema, combinedRegisterSchema, registerSchema } from '@/lib/schemas/registerSchema';
@@ -19,7 +20,7 @@ export async function signInUser(data: LoginSchema): Promise<ActionResult<string
         if (!existingUser.emailVerified) {
             const token = await generateToken(existingUser.email, TokenType.VERIFICATION);
 
-           
+            await sendVerificationEmail(token.email, token.token)
 
             return { status: 'error', error: 'Please verify your email address before logging in' }
         }
@@ -90,6 +91,7 @@ export async function registerUser(data: RegisterSchema): Promise<ActionResult<U
 
         const verificationToken = await generateToken(email, TokenType.VERIFICATION);
 
+        await sendVerificationEmail(verificationToken.email, verificationToken.token);
 
         return { status: 'success', data: user }
     } catch (error) {
