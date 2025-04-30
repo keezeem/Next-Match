@@ -4,11 +4,13 @@ import { Button, Card, CardBody, CardHeader, Input } from '@nextui-org/react'
 import React from 'react'
 import { GiPadlock } from 'react-icons/gi'
 import {useForm} from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
 import { LoginSchema, loginSchema } from '@/lib/schemas/loginSchema';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { signInUser } from '@/app/actions/authActions';
+import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
+import Link from 'next/link';
+import SocialLogin from './SocialLogin';
 
 export default function LoginForm() {
     const router = useRouter();
@@ -23,7 +25,7 @@ export default function LoginForm() {
             router.push('/members');
             router.refresh();
         } else {
-            toast.error(result.error as string); 
+            toast.error(result.error as string);
         }
     }
 
@@ -62,6 +64,10 @@ export default function LoginForm() {
                             isDisabled={!isValid} fullWidth color='secondary' type='submit'>
                             Login
                         </Button>
+                        <SocialLogin />
+                        <div className='flex justify-center hover:underline text-sm'>
+                            <Link href='/forgot-password'>Forgot password?</Link>
+                        </div>
                     </div>
                 </form>
             </CardBody>

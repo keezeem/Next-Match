@@ -6,7 +6,7 @@ export async function sendVerificationEmail(email: string, token: string) {
     const link = `http://localhost:3000/verify-email?token=${token}`;
 
     return resend.emails.send({
-        from: 'azeemolajide7@gmail.com',
+        from: 'testing@resend.dev',
         to: email,
         subject: 'Verify your email address',
         html: `
@@ -21,7 +21,7 @@ export async function sendPasswordResetEmail(email: string, token: string) {
     const link = `http://localhost:3000/reset-password?token=${token}`;
 
     return resend.emails.send({
-        from: 'azeemolajide7@gmail.com',
+        from: 'testing@resend.dev',
         to: email,
         subject: 'Reset your password',
         html: `
