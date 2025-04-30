@@ -36,7 +36,7 @@ export async function signInUser(data: LoginSchema): Promise<ActionResult<string
     } catch (error) {
         console.log(error);
         if (error instanceof AuthError) {
-            switch (error.type) {
+            switch (error.type) { 
                 case 'CredentialsSignin':
                     return { status: 'error', error: 'Invalid credentials' }
                 default:
@@ -100,12 +100,13 @@ export async function registerUser(data: RegisterSchema): Promise<ActionResult<U
     }
 
 }
+
 export async function getUserByEmail(email: string) {
-    return prisma.user.findUnique({where: {email}});
+    return prisma.user.findUnique({ where: { email } });
 }
 
 export async function getUserById(id: string) {
-    return prisma.user.findUnique({where: {id}});
+    return prisma.user.findUnique({ where: { id } });
 }
 
 export async function getAuthUserId() {
@@ -151,7 +152,6 @@ export async function verifyEmail(token: string): Promise<ActionResult<string>> 
         throw error;
     }
 }
-
 
 export async function generateResetPasswordEmail(email: string): Promise<ActionResult<string>> {
     try {
@@ -209,5 +209,45 @@ export async function resetPassword(password: string, token: string | null): Pro
     } catch (error) {
         console.log(error);
         return {status: 'error', error: 'Something went wrong'}
+    }
+}
+
+export async function completeSocialLoginProfile(data: ProfileSchema): 
+    Promise<ActionResult<string>> {
+    
+    const session = await auth();
+
+    if (!session?.user) return {status: 'error', error: 'User not found'};
+
+    try {
+        const user = await prisma.user.update({
+            where: {id: session.user.id},
+            data: {
+                profileComplete: true,
+                member: {
+                    create: {
+                        name: session.user.name as string,
+                        image: session.user.image,
+                        gender: data.gender,
+                        dateOfBirth: new Date(data.dateOfBirth),
+                        description: data.description,
+                        city: data.city,
+                        country: data.country
+                    }
+                }
+            },
+            select: {
+                accounts: {
+                    select: {
+                        provider: true
+                    }
+                }
+            }
+        })
+
+        return {status: 'success', data: user.accounts[0].provider}
+    } catch (error) {
+        console.log(error);
+        throw error;
     }
 }
