@@ -1,7 +1,7 @@
 'use client';
 
 import { signOutUser } from '@/app/actions/authActions';
-import { transformImageUrl } from '@/lib/utils';
+import { transformImageUrl } from '@/lib/util';
 import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger } from '@nextui-org/react'
 import Link from 'next/link'
 import React from 'react'

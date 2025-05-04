@@ -5,8 +5,8 @@ import { ActionResult, MessageDto } from '@/types';
 import { getAuthUserId } from './authActions';
 import { prisma } from '@/lib/prisma';
 import { mapMessageToMessageDto } from '@/lib/mappings';
-import { pusherServer } from '@/lib/schemas/pusher';
-import { createChatId } from '@/lib/utils';
+import { pusherServer } from '@/lib/pusher';
+import { createChatId } from '@/lib/util';
 
 export async function createMessage(recipientUserId: string, data: MessageSchema): Promise<ActionResult<MessageDto>> {
     try {

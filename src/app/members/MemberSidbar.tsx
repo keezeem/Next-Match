@@ -1,7 +1,7 @@
 'use client';
 
 import PresenceDot from '@/components/PresenceDot';
-import { calculateAge, transformImageUrl } from '@/lib/utils'
+import { calculateAge, transformImageUrl } from '@/lib/util'
 import { Button, Card, CardBody, CardFooter, Divider, Image } from '@nextui-org/react'
 import { Member } from '@prisma/client'
 import Link from 'next/link'

@@ -1,8 +1,9 @@
 'use server';
 
+import { auth } from '@/auth';
 import { prisma } from '@/lib/prisma';
 import { getAuthUserId } from './authActions';
-import { pusherServer } from '@/lib/schemas/pusher';
+import { pusherServer } from '@/lib/pusher';
 
 export async function toggleLikeMember(targetUserId: string, isLiked: boolean) {
     try {

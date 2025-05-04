@@ -2,7 +2,7 @@
 
 import { createMessage } from '@/app/actions/messageActions';
 import { MessageSchema, messageSchema } from '@/lib/schemas/messageSchema'
-import { handleFormServerErrors } from '@/lib/utils';
+import { handleFormServerErrors } from '@/lib/util';
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Input } from '@nextui-org/react'
 import { useParams, useRouter } from 'next/navigation';

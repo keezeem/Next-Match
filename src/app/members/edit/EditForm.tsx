@@ -1,8 +1,8 @@
 'use client';
 
-import { updateMemberProfile } from '@/app/actions/userAction';
+import { updateMemberProfile } from '@/app/actions/userActions';
 import { MemberEditSchema, memberEditSchema } from '@/lib/schemas/memberEditSchema';
-import { handleFormServerErrors } from '@/lib/utils';
+import { handleFormServerErrors } from '@/lib/util';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Button, Input, Textarea } from '@nextui-org/react';
 import { Member } from '@prisma/client'
@@ -19,7 +19,7 @@ export default function EditForm({ member }: Props) {
     const router = useRouter();
     const { register, handleSubmit, reset, setError,
         formState: { isValid, isDirty, isSubmitting, errors } } = useForm<MemberEditSchema>({
-            resolver: zodResolver(memberEditSchema),
+            // resolver: zodResolver(memberEditSchema),
             mode: 'onTouched'
         });
 
