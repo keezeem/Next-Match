@@ -3,8 +3,9 @@
 import { MessageDto } from '@/types'
 import React, { useRef } from 'react'
 import clsx from 'clsx';
+import { Avatar } from '@nextui-org/react';
+import { timeAgo, transformImageUrl } from '@/lib/util';
 import { useEffect } from 'react';
-import { timeAgo, transformImageUrl } from '@/lib/utils';
 import PresenceAvatar from '@/components/PresenceAvatar';
 
 type Props = {

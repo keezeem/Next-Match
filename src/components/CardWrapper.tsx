@@ -1,5 +1,6 @@
 import { Card, CardHeader, CardBody, CardFooter, Button } from '@nextui-org/react';
 import { ReactNode } from 'react';
+import { GiPadlock } from 'react-icons/gi';
 import { IconType } from 'react-icons/lib';
 
 type Props = {

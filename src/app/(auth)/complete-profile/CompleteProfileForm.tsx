@@ -7,8 +7,8 @@ import { FormProvider, useForm } from 'react-hook-form';
 import {RiProfileLine} from 'react-icons/ri';
 import ProfileForm from '../register/ProfileForm';
 import { Button } from '@nextui-org/react';
-import { signIn } from 'next-auth/react';
 import { completeSocialLoginProfile } from '@/app/actions/authActions';
+import { signIn } from 'next-auth/react';
 
 export default function CompleteProfileForm() {
     const methods = useForm<ProfileSchema>({

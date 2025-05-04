@@ -2,15 +2,15 @@
 
 import { registerUser } from '@/app/actions/authActions';
 import { RegisterSchema, profileSchema, registerSchema } from '@/lib/schemas/registerSchema';
-import { handleFormServerErrors } from '@/lib/utils';
+import { handleFormServerErrors } from '@/lib/util';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Card, CardHeader, CardBody, Button, Input } from '@nextui-org/react';
 import React, { useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form';
 import { GiPadlock } from 'react-icons/gi';
-import { useRouter } from 'next/navigation';
 import UserDetailsForm from './UserDetailsForm';
 import ProfileForm from './ProfileForm';
+import { useRouter } from 'next/navigation';
 
 const stepSchemas = [registerSchema, profileSchema];
 

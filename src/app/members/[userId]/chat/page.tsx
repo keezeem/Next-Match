@@ -3,8 +3,8 @@ import React from 'react'
 import ChatForm from './ChatForm'
 import { getMessageThread } from '@/app/actions/messageActions'
 import { getAuthUserId } from '@/app/actions/authActions';
-import { createChatId } from '@/lib/utils';
 import MessageList from './MessageList';
+import { createChatId } from '@/lib/util';
 
 export default async function ChatPage({params}: {params: {userId: string}}) {
     const userId = await getAuthUserId();

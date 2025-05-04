@@ -9,7 +9,7 @@ import { generateToken, getTokenByToken } from '@/lib/tokens';
 import { ActionResult } from '@/types';
 import { TokenType, User } from '@prisma/client';
 import bcrypt from 'bcryptjs';
-import { AuthError } from 'next-auth';
+import AuthError from 'next-auth'
 
 export async function signInUser(data: LoginSchema): Promise<ActionResult<string>> {
     try {
@@ -35,16 +35,21 @@ export async function signInUser(data: LoginSchema): Promise<ActionResult<string
         return { status: 'success', data: 'Logged in' }
     } catch (error) {
         console.log(error);
-        if (error instanceof AuthError) {
-            switch (error.type) { 
-                case 'CredentialsSignin':
-                    return { status: 'error', error: 'Invalid credentials' }
-                default:
-                    return { status: 'error', error: 'Something went wrong' }
+        if (error instanceof Error) { 
+            if (error instanceof AuthError) {
+                switch (error.message) { 
+                    case 'CredentialsSignin':
+                        return { status: 'error', error: 'Invalid credentials' };
+                    default:
+                        return { status: 'error', error: 'Something went wrong' };
+                }
+            } else {
+                return { status: 'error', error: 'Unknown error occurred' };
             }
         } else {
-            return { status: 'error', error: 'Something else went wrong' }
+            return { status: 'error', error: 'Something else went wrong' };
         }
+        
     }
 }
 
@@ -250,4 +255,14 @@ export async function completeSocialLoginProfile(data: ProfileSchema):
         console.log(error);
         throw error;
     }
+}
+
+export async function getUserRole() {
+    const session = await auth();
+
+    const role = session?.user.role;
+
+    if (!role) throw new Error('Not in role');
+
+    return role;
 }

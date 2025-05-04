@@ -1,5 +1,5 @@
 import {z} from 'zod';
-import { calculateAge } from '../utils';
+import { calculateAge } from '../util';
 
 export const registerSchema = z.object({
     name: z.string().min(3),

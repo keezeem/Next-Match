@@ -3,9 +3,9 @@
 import { MessageDto } from '@/types'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import MessageBox from './MessageBox';
+import { pusherClient } from '@/lib/pusher';
+import { formatShortDateTime } from '@/lib/util';
 import useMessageStore from '@/hooks/useMessageStore';
-import { formatShortDateTime } from '@/lib/utils';
-import { pusherClient } from '@/lib/schemas/pusher';
 
 type Props = {
     initialMessages: {messages: MessageDto[], readCount: number};

@@ -1,4 +1,4 @@
-import { pusherClient } from '@/lib/schemas/pusher';
+import { pusherClient } from '@/lib/pusher';
 import { MessageDto } from '@/types';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { Channel } from 'pusher-js'
